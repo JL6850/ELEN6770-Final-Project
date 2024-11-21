@@ -21,6 +21,13 @@ class User(UserMixin, db.Model):
     last_seen: so.Mapped[Optional[datetime]] = so.mapped_column(
         default=lambda: datetime.now(timezone.utc))
 
+    followers = sa.Table(
+        'followers',
+        db.metadata,
+        sa.Column('follower_id', sa.Integer, sa.ForeignKey('users.id'), primary_key=True),
+        sa.Column('followed_id', sa.Integer, sa.ForeignKey('users.id'), primary_key=True)
+    )
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
