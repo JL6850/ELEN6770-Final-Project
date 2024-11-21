@@ -7,6 +7,7 @@ import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
 from flask_mail import Mail
+from flask_moment import Moment
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
@@ -44,6 +45,7 @@ if not app.debug:
     app.logger.info('Microblog startup')
 
 mail = Mail(app)
+moment = Moment(app)
 
 from app import routes, models, errors
 
