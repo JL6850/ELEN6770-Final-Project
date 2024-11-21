@@ -28,6 +28,17 @@ class User(UserMixin, db.Model):
         sa.Column('followed_id', sa.Integer, sa.ForeignKey('users.id'), primary_key=True)
     )
 
+    following: so.WriteOnlyMapped['User'] = so.relationship(
+        secondary=followers, primaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.followed_id == id),
+        back_populates='followers'
+    )
+    followers: so.WriteOnlyMapped['User'] = so.relationship(
+        secondary=followers, primaryjoin=(followers.c.followed_id == id),
+        secondaryjoin=(followers.c.follower_id == id),
+        back_populates='following'
+    )
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
