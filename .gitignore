@@ -2,3 +2,6 @@
 !/logs/
 !/__pycache__/
 !/logs/microblog.log
+app.db
+logs/
+__pycache__/
