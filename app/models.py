@@ -24,8 +24,8 @@ class User(UserMixin, db.Model):
     followers = sa.Table(
         'followers',
         db.metadata,
-        sa.Column('follower_id', sa.Integer, sa.ForeignKey('users.id'), primary_key=True),
-        sa.Column('followed_id', sa.Integer, sa.ForeignKey('users.id'), primary_key=True)
+        sa.Column('follower_id', sa.Integer, sa.ForeignKey('user.id'), primary_key=True),
+        sa.Column('followed_id', sa.Integer, sa.ForeignKey('user.id'), primary_key=True)
     )
 
     following: so.WriteOnlyMapped['User'] = so.relationship(
