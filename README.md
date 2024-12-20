@@ -2,6 +2,31 @@
 
 A web application where users can register, log in, create blog posts, edit their profiles, and interact with other users. 
 
+## Overall Architecture
+
+This project is built with a three-layer architecture:
+
+### 1. **Frontend Layer**
+- Technologies: HTML, CSS, JavaScript, Jinja2
+- Role: Provides a responsive user interface for user interactions.
+- Examples: User registration, login, profile management, and blog post creation.
+
+### 2. **Backend Layer**
+- Framework: Flask (Python)
+- Role: Handles API requests, user authentication, session tracking, and business logic.
+
+### 3. **Database Layer**
+- Technology: SQLite
+- Role: Stores user profiles, posts, comments, and other persistent data.
+
+### Architecture Diagram
+
+The architecture of the project is visualized in the diagram below:
+
+![Optimized Web Application Architecture](D:/Python_Code/ELEN6770-Final-Project/figures/Optimized%20Web%20Application%20Architecture.png)
+
+
+
 ## Features
 
 ### User Services/Interfaces
@@ -25,27 +50,93 @@ A web application where users can register, log in, create blog posts, edit thei
    - Fully responsive web interface accessible via any modern browser.
    - Built using HTML, CSS, JavaScript, and Jinja2 for interactivity.
 
+## **Database**
+
+- Tables and Columns
+
+#### 1. **alembic_version**
+| Column      | Type        |
+| ----------- | ----------- |
+| version_num | VARCHAR(32) |
+
 ---
 
-## **Components and Technologies**
+#### 2. **followers**
+| Type    | Column      |
+| ------- | ----------- |
+| INTEGER | follower_id |
+| INTEGER | followed_id |
 
-### **Frontend**
-- **Technologies**: HTML, CSS, JavaScript, Jinja2.
-- **Purpose**: Provides a responsive user interface for interactions like registration, login, profile management, and blog posts.
+---
 
-###  **Backend**
-- **Framework**: Flask (Python).
-- **Purpose**:
-  - Handles API requests from the frontend.
-  - Manages user authentication and session tracking.
-  - Interacts with the database.
+#### 3. **message**
+| Column       | Type         |
+| ------------ | ------------ |
+| id           | INTEGER      |
+| sender_id    | INTEGER      |
+| recipient_id | INTEGER      |
+| body         | VARCHAR(140) |
+| timestamp    | DATETIME     |
 
-###  **Database**
-- **Local**: SQLite.
-- **Purpose**: Stores application data, including user profiles, posts, and comments.
+---
+
+#### 4. **notification**
+| Column       | Type         |
+| ------------ | ------------ |
+| id           | INTEGER      |
+| name         | VARCHAR(128) |
+| user_id      | INTEGER      |
+| timestamp    | FLOAT        |
+| payload_json | TEXT         |
+
+---
+
+#### 5. **post**
+| Column    | Type         |
+| --------- | ------------ |
+| id        | INTEGER      |
+| body      | VARCHAR(140) |
+| timestamp | DATETIME     |
+| user_id   | INTEGER      |
+| language  | VARCHAR(5)   |
+
+---
+
+#### 6. **user**
+| Column                 | Type         |
+| :--------------------- | ------------ |
+| id                     | INTEGER      |
+| username               | VARCHAR(64)  |
+| email                  | VARCHAR(120) |
+| password_hash          | VARCHAR(256) |
+| about_me               | VARCHAR(140) |
+| last_seen              | DATETIME     |
+| last_message_read_time | DATETIME     |
+
+---
+
+### Usage
+
+#### Database Configuration
+- The database consists of 6 primary tables: `alembic_version`, `followers`, `message`, `notification`, `post`, and `user`.
+- These tables support the main functionalities of the project, such as user management, notifications, messaging, and post creation.
+
+#### Relationships
+- **followers**: Manages the many-to-many relationship between users (follower and followed).
+- **message**: Stores messages exchanged between users, including sender and recipient.
+- **notification**: Handles user-specific notifications with associated payloads.
+- **post**: Stores user-generated posts, including content, timestamps, and language.
+- **user**: Maintains user profiles, login credentials, and activity metadata.
+
+#### Notes
+- For efficient querying, indices are defined for key columns such as `username` and `email` in the `user` table.
+
+---
+
+
 
 ###  **Cloud**
-- **Platform**: Hosted on Microsoft Azure or AWS EC2.
+- **Platform**: Hosted on AWS EC2.
 - **Translation**: Uses **Microsoft Azure Translate API** for translating posts or comments to English.
 
 ---
