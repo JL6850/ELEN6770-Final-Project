@@ -23,7 +23,7 @@ This project is built with a three-layer architecture:
 
 The architecture of the project is visualized in the diagram below:
 
-![Optimized Web Application Architecture](D:/Python_Code/ELEN6770-Final-Project/figures/Optimized%20Web%20Application%20Architecture.png)
+![Optimized Web Application Architecture](./figures/Optimized%20Web%20Application%20Architecture.png)
 
 
 
